@@ -291,7 +291,7 @@ export async function createFormattedMeasurements(measurementData: GraphData): P
 {
     const formattedMeasurements: Entry[] = [];
     const glucoseMeasurement = measurementData.connection.glucoseMeasurement;
-    const measurementDate = getUtcDateFromString(glucoseMeasurement.FactoryTimestamp);
+    const measurementDate = new Date(glucoseMeasurement.FactoryTimestamp.replace(' ', 'T') + 'Z');
     const lastEntry = config.allData ? null : await nightscoutClient.lastEntry();
     // Add the most recent measurement first
     if (lastEntry === null || measurementDate > lastEntry.date)
